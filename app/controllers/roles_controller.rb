@@ -1,7 +1,7 @@
 class RolesController < ApplicationController
 
+  before_action :needs_to_be_leader, except: [:index, :show]
   before_action :authenticate_user!
-  before_action :needs_to_be_leader, only: [:edit, :update, :destroy]
   before_action :set_role, only: [:show, :edit, :update, :destroy]
 
   # GET /roles
