@@ -1,4 +1,7 @@
 class RolesController < ApplicationController
+
+  before_action :authenticate_user!
+  before_action :needs_to_be_leader
   before_action :set_role, only: [:show, :edit, :update, :destroy]
 
   # GET /roles
@@ -25,7 +28,6 @@ class RolesController < ApplicationController
   # POST /roles.json
   def create
     @role = Role.new(role_params)
-
     respond_to do |format|
       if @role.save
         format.html { redirect_to @role, notice: 'Role was successfully created.' }
@@ -58,7 +60,7 @@ class RolesController < ApplicationController
     userRole = UserRole.find_by_role_id(@role.id)
     @role.destroy
     userRole.destroy
-    
+
     respond_to do |format|
       format.html { redirect_to roles_url, notice: 'Role was successfully destroyed.' }
       format.json { head :no_content }
