@@ -1,0 +1,31 @@
+<% if user_signed_in? %>
+  <li <% if current_page?(edit_user_registration_path) -%>class="active"<% end -%>>
+    <%= link_to edit_user_registration_path do %>
+      <i class="now-ui-icons ui-1_settings-gear-63"></i>
+      <p> Edit Profile </p>
+    <% end %>
+  </li>
+  <li <% if current_page?(destroy_user_session_path) -%>class="active"<% end -%>><%= link_to destroy_user_session_path, :method=>'delete' do %>
+      <i class="now-ui-icons media-1_button-power"></i>
+      <p> Sign out </p>
+    <% end %>
+  </li>
+<% else %>
+  <li <% if current_page?(new_user_session_path) -%>class="active"<% end -%>><%= link_to new_user_session_path do %>
+      <i class="fa fa-sign-in-alt"></i>
+      <p> Sign in </p>
+    <% end %>
+  </li>
+  <li <% if current_page?(new_user_registration_path) -%>class="active"<% end -%>><%= link_to new_user_registration_path do %>
+      <i class="fa fa-user-plus"></i>
+      <p> Sign up </p>
+    <% end %>
+  </li>
+<% end %>
+<% if user_signed_in? %>
+  <li <% if current_page?(users_path) -%>class="active"<% end -%>><%= link_to users_path do %>
+      <i class="now-ui-icons users_single-02"></i>
+      <p> Users </p>
+    <% end %>
+  </li>
+<% end %>
