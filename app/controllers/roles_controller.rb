@@ -4,6 +4,7 @@ class RolesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_role, only: [:show, :edit, :update, :destroy]
 
+  include RolesHelper
   # GET /roles
   # GET /roles.json
   def index
@@ -82,10 +83,6 @@ class RolesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_role
       @role = Role.find(params[:id])
-    end
-
-    def role_already_exists?
-      Role.all.where(@role.name).count == 1
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

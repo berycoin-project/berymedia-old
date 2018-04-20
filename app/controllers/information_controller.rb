@@ -3,6 +3,7 @@ class InformationController < ApplicationController
   before_action :authenticate_user!, only: [:edit, :update, :destroy]
   before_action :set_information, only: [:show, :edit, :update, :destroy]
 
+  include InformationHelper
   # GET /information
   # GET /information.json
   def index
@@ -86,9 +87,6 @@ class InformationController < ApplicationController
       @information = Information.find(params[:id])
     end
 
-    def information_already_exists?
-      Information.all.where(@information.content).count == 1
-    end
     # Never trust parameters from the scary internet, only allow the white list through.
     def information_params
       params.require(:information).permit(:title, :content)
