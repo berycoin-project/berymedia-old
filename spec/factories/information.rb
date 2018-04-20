@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :information do
-    title "MyString"
+    title ""
     content "MyText"
   end
 end

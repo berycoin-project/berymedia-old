@@ -29,6 +29,7 @@ class InformationController < ApplicationController
     respond_to do |format|
       if @information.save
         current_user.informations << @information
+
         format.html { redirect_to @information, notice: 'Information was successfully created.' }
         format.json { render :show, status: :created, location: @information }
       else
@@ -56,32 +57,20 @@ class InformationController < ApplicationController
   # DELETE /information/1.json
   def destroy
 
-    userinfo = UserInformation.find_by_information_id(@information.id)
+    userInfo = UserInformation.find_by_information_id(@information.id)
+    userInfo.destroy
+    @information.destroy
 
-    if @information.destroy
-      if userinfo.destroy
-        respond_to do |format|
-          format.html { redirect_to information_index_url, notice: 'Information was successfully destroyed.' }
-          format.json { head :no_content }
-        end
-      end
+    respond_to do |format|
+      format.html { redirect_to information_index_url, notice: 'Information was successfully destroyed.' }
+      format.json { head :no_content }
     end
-
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_information
-
-      lastinfo = Information.last
-      if !(params[:id].to_i > lastinfo.id)
-        @information = Information.find(params[:id])
-      else
-        respond_to do |format|
-          format.html { redirect_to projects_url, error: 'Information does not exist' }
-          format.json { head :no_content }
-        end
-      end
+      @information = Information.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
