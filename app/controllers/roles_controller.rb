@@ -7,7 +7,7 @@ class RolesController < ApplicationController
   # GET /roles
   # GET /roles.json
   def index
-    @roles = current_user.roles.all
+    @roles = Role.all
   end
 
   # GET /roles/1
@@ -27,14 +27,16 @@ class RolesController < ApplicationController
   # POST /roles
   # POST /roles.json
   def create
-    @role = Role.new(role_params)
-    respond_to do |format|
-      if @role.save
-        format.html { redirect_to @role, notice: 'Role was successfully created.' }
-        format.json { render :show, status: :created, location: @role }
-      else
-        format.html { render :new }
-        format.json { render json: @role.errors, status: :unprocessable_entity }
+    unless role_already_exists?
+      @role = Role.new(role_params)
+      respond_to do |format|
+        if @role.save
+          format.html { redirect_to @role, notice: 'Role was successfully created.' }
+          format.json { render :show, status: :created, location: @role }
+        else
+          format.html { render :new }
+          format.json { render json: @role.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -56,14 +58,23 @@ class RolesController < ApplicationController
   # DELETE /roles/1
   # DELETE /roles/1.json
   def destroy
-
     userRole = UserRole.find_by_role_id(@role.id)
-    @role.destroy
-    userRole.destroy
 
-    respond_to do |format|
-      format.html { redirect_to roles_url, notice: 'Role was successfully destroyed.' }
-      format.json { head :no_content }
+    if @role.destroy
+      if userRole.destroy
+        respond_to do |format|
+          format.html { redirect_to roles_url, notice: 'Role was successfully destroyed.' }
+          format.json { head :no_content }
+        end
+      else
+        respond_to do |format|
+          format.html { redirect_to root_path, :flash => { :error => "User role was not deleted" } }
+        end
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to root_path, :flash => { :error => "Could not delete the role" } }
+      end
     end
   end
 
@@ -71,6 +82,10 @@ class RolesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_role
       @role = Role.find(params[:id])
+    end
+
+    def role_already_exists?
+      Role.all.where(@role.name).count == 1
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
