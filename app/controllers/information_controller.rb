@@ -3,7 +3,6 @@ class InformationController < ApplicationController
   before_action :authenticate_user!, only: [:edit, :update, :destroy]
   before_action :set_information, only: [:show, :edit, :update, :destroy]
 
-  include InformationHelper
   # GET /information
   # GET /information.json
   def index
@@ -27,7 +26,7 @@ class InformationController < ApplicationController
   # POST /information
   # POST /information.json
   def create
-    unless information_already_exists?
+    if !information_already_exists?(information_params)
       @information = Information.new(information_params)
 
       respond_to do |format|
@@ -40,6 +39,10 @@ class InformationController < ApplicationController
           format.html { render :new }
           format.json { render json: @information.errors, status: :unprocessable_entity }
         end
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to roles_path, :flash => { :error => "This news already Exists" } }
       end
     end
   end
@@ -86,7 +89,9 @@ class InformationController < ApplicationController
     def set_information
       @information = Information.find(params[:id])
     end
-
+    def information_already_exists?(opt = {})
+      Information.all.where(content: opt[:content]).count == 1
+    end
     # Never trust parameters from the scary internet, only allow the white list through.
     def information_params
       params.require(:information).permit(:title, :content)

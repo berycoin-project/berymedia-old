@@ -4,7 +4,6 @@ class RolesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_role, only: [:show, :edit, :update, :destroy]
 
-  include RolesHelper
   # GET /roles
   # GET /roles.json
   def index
@@ -28,7 +27,7 @@ class RolesController < ApplicationController
   # POST /roles
   # POST /roles.json
   def create
-    unless role_already_exists?
+    if !role_already_exists?(role_params)
       @role = Role.new(role_params)
       respond_to do |format|
         if @role.save
@@ -38,6 +37,10 @@ class RolesController < ApplicationController
           format.html { render :new }
           format.json { render json: @role.errors, status: :unprocessable_entity }
         end
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to roles_path, :flash => { :error => "This role already Exists" } }
       end
     end
   end
@@ -84,7 +87,9 @@ class RolesController < ApplicationController
     def set_role
       @role = Role.find(params[:id])
     end
-
+    def role_already_exists?(opt = {})
+      Role.all.where(name: opt[:name]).count == 1
+    end
     # Never trust parameters from the scary internet, only allow the white list through.
     def role_params
       params.require(:role).permit(:name, :description)
