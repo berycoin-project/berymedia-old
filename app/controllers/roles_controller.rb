@@ -1,13 +1,13 @@
 class RolesController < ApplicationController
 
   before_action :authenticate_user!
-  before_action :needs_to_be_leader
+  before_action :needs_to_be_leader, only: [:edit, :update, :destroy]
   before_action :set_role, only: [:show, :edit, :update, :destroy]
 
   # GET /roles
   # GET /roles.json
   def index
-    @roles = Role.all
+    @roles = current_user.roles.all
   end
 
   # GET /roles/1
