@@ -42,7 +42,7 @@ class InformationController < ApplicationController
       end
     else
       respond_to do |format|
-        format.html { redirect_to roles_path, :flash => { :error => "This news already Exists" } }
+        format.html { redirect_to information_path, :flash => { :error => "This news already Exists" } }
       end
     end
   end
