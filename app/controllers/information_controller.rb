@@ -6,7 +6,7 @@ class InformationController < ApplicationController
   # GET /information
   # GET /information.json
   def index
-    @information = current_user.informations.all
+    @information = Information.all
   end
 
   # GET /information/1
@@ -26,17 +26,19 @@ class InformationController < ApplicationController
   # POST /information
   # POST /information.json
   def create
-    @information = Information.new(information_params)
+    unless information_already_exists?
+      @information = Information.new(information_params)
 
-    respond_to do |format|
-      if @information.save
-        current_user.informations << @information
+      respond_to do |format|
+        if @information.save
+          current_user.informations << @information
 
-        format.html { redirect_to @information, notice: 'Information was successfully created.' }
-        format.json { render :show, status: :created, location: @information }
-      else
-        format.html { render :new }
-        format.json { render json: @information.errors, status: :unprocessable_entity }
+          format.html { redirect_to @information, notice: 'Information was successfully created.' }
+          format.json { render :show, status: :created, location: @information }
+        else
+          format.html { render :new }
+          format.json { render json: @information.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -60,12 +62,21 @@ class InformationController < ApplicationController
   def destroy
 
     userInfo = UserInformation.find_by_information_id(@information.id)
-    userInfo.destroy
-    @information.destroy
-
-    respond_to do |format|
-      format.html { redirect_to information_index_url, notice: 'Information was successfully destroyed.' }
-      format.json { head :no_content }
+    if userInfo.destroy
+      if @information.destroy
+        respond_to do |format|
+          format.html { redirect_to information_index_url, notice: 'Information was successfully destroyed.' }
+          format.json { head :no_content }
+        end
+      else
+        respond_to do |format|
+          format.html { redirect_to root_path, :flash => { :error => "News was not deleted" } }
+        end
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to root_path, :flash => { :error => "Could not delete the News" } }
+      end
     end
   end
 
@@ -75,6 +86,9 @@ class InformationController < ApplicationController
       @information = Information.find(params[:id])
     end
 
+    def information_already_exists?
+      Information.all.where(@information.content).count == 1
+    end
     # Never trust parameters from the scary internet, only allow the white list through.
     def information_params
       params.require(:information).permit(:title, :content)
