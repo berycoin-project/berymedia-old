@@ -172,10 +172,17 @@
 
 </body>
 <script>
-  $('.nav').on('click', 'li', function () {
-      $('.nav li.active').removeClass('active');
-      $(this).addClass('active');
-  });
+    $('.nav').on('click', 'li', function () {
+        $('.nav li.active').removeClass('active');
+        $(this).addClass('active');
+    });
+    $(document).ready(function() {
+        // initialise Datetimepicker and Sliders
+        demo.initDateTimePicker();
+        if ($('.slider').length != 0) {
+            demo.initSliders();
+        }
+    });
 </script>
 <%= render 'shared/footer' %>
 </html>

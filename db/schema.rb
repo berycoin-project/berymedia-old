@@ -10,13 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180421004525) do
+ActiveRecord::Schema.define(version: 20180421011122) do
 
   create_table "information", force: :cascade do |t|
     t.string   "title"
     t.text     "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "profiles", force: :cascade do |t|
+    t.date     "date_of_birth"
+    t.string   "gender"
+    t.string   "about_me"
+    t.string   "company"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   create_table "roles", force: :cascade do |t|
@@ -33,6 +42,15 @@ ActiveRecord::Schema.define(version: 20180421004525) do
     t.datetime "updated_at",     null: false
     t.index ["information_id"], name: "index_user_informations_on_information_id"
     t.index ["user_id"], name: "index_user_informations_on_user_id"
+  end
+
+  create_table "user_profiles", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "profile_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["profile_id"], name: "index_user_profiles_on_profile_id"
+    t.index ["user_id"], name: "index_user_profiles_on_user_id"
   end
 
   create_table "user_roles", force: :cascade do |t|

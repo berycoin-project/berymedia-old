@@ -1,0 +1,40 @@
+<div class="authform">
+
+<%= form_for(profile) do |f| %>
+  <% if profile.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(profile.errors.count, "error") %> prohibited this profile from being saved:</h2>
+
+      <ul>
+      <% profile.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :date_of_birth %>
+    <%= f.text_field :date_of_birth , class: 'form-control datepicker'%>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :gender %>
+    <%= f.text_field :gender , class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :about_me %>
+    <%= f.text_field :about_me , class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :company %>
+    <%= f.text_field :company , class: 'form-control' %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit class: 'btn btn-info' %>
+  </div>
+<% end %>
+</div>
