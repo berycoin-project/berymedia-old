@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180421045320) do
+ActiveRecord::Schema.define(version: 20180421230213) do
 
   create_table "information", force: :cascade do |t|
     t.string   "title"
@@ -26,6 +26,15 @@ ActiveRecord::Schema.define(version: 20180421045320) do
     t.datetime "updated_at", null: false
     t.index ["profile_id"], name: "index_profile_ranks_on_profile_id"
     t.index ["rank_id"], name: "index_profile_ranks_on_rank_id"
+  end
+
+  create_table "profile_skills", force: :cascade do |t|
+    t.integer  "profile_id"
+    t.integer  "skill_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["profile_id"], name: "index_profile_skills_on_profile_id"
+    t.index ["skill_id"], name: "index_profile_skills_on_skill_id"
   end
 
   create_table "profiles", force: :cascade do |t|
@@ -49,6 +58,13 @@ ActiveRecord::Schema.define(version: 20180421045320) do
     t.text     "description"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+  end
+
+  create_table "skills", force: :cascade do |t|
+    t.string   "title"
+    t.string   "level"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "user_informations", force: :cascade do |t|
