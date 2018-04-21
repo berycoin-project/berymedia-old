@@ -1,10 +1,11 @@
 class WalletsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_wallet, only: [:show, :edit, :update, :destroy]
 
   # GET /wallets
   # GET /wallets.json
   def index
-    @wallets = Wallet.all
+    @wallets = current_user.wallets
   end
 
   # GET /wallets/1
