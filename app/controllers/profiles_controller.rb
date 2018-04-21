@@ -25,7 +25,7 @@ class ProfilesController < ApplicationController
   # POST /profiles
   # POST /profiles.json
   def create
-    if !profile_already_exists? (profile_params)
+    if !profile_already_exists?(profile_params)
       @profile = Profile.new(profile_params)
 
       respond_to do |format|
@@ -41,7 +41,7 @@ class ProfilesController < ApplicationController
       end
     else
       respond_to do |format|
-        format.html { redirect_to profiles_path, :flash => { :error => "You already have a profile! " } }
+        format.html { redirect_to profiles_path, :flash => { :error => "You can only have one profile. " } }
       end
     end
   end

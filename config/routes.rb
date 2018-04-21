@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :ranks
   resources :profiles
   resources :wallets
   resources :roles

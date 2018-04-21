@@ -10,13 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180421011122) do
+ActiveRecord::Schema.define(version: 20180421045320) do
 
   create_table "information", force: :cascade do |t|
     t.string   "title"
     t.text     "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "profile_ranks", force: :cascade do |t|
+    t.integer  "profile_id"
+    t.integer  "rank_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["profile_id"], name: "index_profile_ranks_on_profile_id"
+    t.index ["rank_id"], name: "index_profile_ranks_on_rank_id"
   end
 
   create_table "profiles", force: :cascade do |t|
@@ -26,6 +35,13 @@ ActiveRecord::Schema.define(version: 20180421011122) do
     t.string   "company"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+  end
+
+  create_table "ranks", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "roles", force: :cascade do |t|
