@@ -69,6 +69,6 @@ class WalletsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def wallet_params
-      params.require(:wallet).permit(:name,, :string, :balance)
+      params.require(:wallet).permit(:label, :address, :balance)
     end
 end
