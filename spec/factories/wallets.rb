@@ -1,6 +1,6 @@
 FactoryBot.define do
-  factory :role do
+  factory :wallet do
     name "MyString"
-    description "MyText"
+    balance 1.5
   end
 end

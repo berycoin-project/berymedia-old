@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :wallets
   resources :roles
   resources :information
   root to: 'visitors#index'
