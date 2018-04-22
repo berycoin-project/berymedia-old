@@ -26,17 +26,26 @@ class SkillsController < ApplicationController
   # POST /skills.json
   def create
     if !skill_already_exists?(skill_params)
-      @skill = Skill.new(skill_params)
+      ## Find Skill in db , if it already exists, just take that otherwise create New
+      @skill = Skill.all.where(title: skill_params[:title]).where(level: skill_params[:level]).first
+      if @skill == nil
+        @skill = Skill.new(skill_params)
+        respond_to do |format|
+          if @skill.save
+            current_user.profiles.first.skills << @skill
 
-      respond_to do |format|
-        if @skill.save
-          current_user.profiles.first.skills << @skill
-
-          format.html { redirect_to @skill, notice: 'Skill was successfully created.' }
+            format.html { redirect_to @skill, notice: 'Skill was successfully created.' }
+            format.json { render :show, status: :created, location: @skill }
+          else
+            format.html { render :new }
+            format.json { render json: @skill.errors, status: :unprocessable_entity }
+          end
+        end
+      else
+        current_user.profiles.first.skills << @skill
+        respond_to do |format|
+          format.html { redirect_to @skill, notice: 'Skill was successfully added to your Profile. ' }
           format.json { render :show, status: :created, location: @skill }
-        else
-          format.html { render :new }
-          format.json { render json: @skill.errors, status: :unprocessable_entity }
         end
       end
     else
