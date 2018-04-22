@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180422020847) do
+ActiveRecord::Schema.define(version: 20180422041826) do
 
   create_table "addresses", force: :cascade do |t|
     t.text     "street"
@@ -96,6 +96,22 @@ ActiveRecord::Schema.define(version: 20180422020847) do
   create_table "skills", force: :cascade do |t|
     t.string   "title"
     t.string   "level"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "social_profiles", force: :cascade do |t|
+    t.integer  "profile_id"
+    t.integer  "social_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["profile_id"], name: "index_social_profiles_on_profile_id"
+    t.index ["social_id"], name: "index_social_profiles_on_social_id"
+  end
+
+  create_table "socials", force: :cascade do |t|
+    t.string   "name"
+    t.string   "link"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

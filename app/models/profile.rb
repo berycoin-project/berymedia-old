@@ -13,4 +13,7 @@ class Profile < ApplicationRecord
 
   has_many :profile_addresses
   has_many :addresses, through: :profile_addresses
+
+  has_many :social_profiles
+  has_many :socials, through: :social_profiles
 end
