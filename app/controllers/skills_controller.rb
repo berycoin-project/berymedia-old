@@ -26,7 +26,7 @@ class SkillsController < ApplicationController
   # POST /skills.json
   def create
     if !skill_already_exists?(skill_params)
-      ## Find Skill in db , if it already exists, just take that otherwise create New
+      ## Find Skill in db , if it already exists, just take that otherwise create new
       @skill = Skill.all.where(title: skill_params[:title]).where(level: skill_params[:level]).first
       if @skill == nil
         @skill = Skill.new(skill_params)

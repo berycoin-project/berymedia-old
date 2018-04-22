@@ -64,7 +64,6 @@ class InformationController < ApplicationController
   # DELETE /information/1
   # DELETE /information/1.json
   def destroy
-
     userInfo = UserInformation.find_by_information_id(@information.id)
     if userInfo.destroy
       if @information.destroy

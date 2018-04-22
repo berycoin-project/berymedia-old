@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :addresses
+  resources :contacts
   resources :skills
   resources :ranks
   resources :profiles

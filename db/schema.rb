@@ -10,13 +10,46 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180421230213) do
+ActiveRecord::Schema.define(version: 20180422020847) do
+
+  create_table "addresses", force: :cascade do |t|
+    t.text     "street"
+    t.string   "country"
+    t.string   "city"
+    t.integer  "zip"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "contacts", force: :cascade do |t|
+    t.string   "number"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "information", force: :cascade do |t|
     t.string   "title"
     t.text     "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "profile_addresses", force: :cascade do |t|
+    t.integer  "profile_id"
+    t.integer  "address_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["address_id"], name: "index_profile_addresses_on_address_id"
+    t.index ["profile_id"], name: "index_profile_addresses_on_profile_id"
+  end
+
+  create_table "profile_contacts", force: :cascade do |t|
+    t.integer  "profile_id"
+    t.integer  "contact_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["contact_id"], name: "index_profile_contacts_on_contact_id"
+    t.index ["profile_id"], name: "index_profile_contacts_on_profile_id"
   end
 
   create_table "profile_ranks", force: :cascade do |t|

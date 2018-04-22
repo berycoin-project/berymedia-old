@@ -1,0 +1,10 @@
+class CreateProfileAddresses < ActiveRecord::Migration[5.0]
+  def change
+    create_table :profile_addresses do |t|
+      t.references :profile, foreign_key: true
+      t.references :address, foreign_key: true
+
+      t.timestamps
+    end
+  end
+end

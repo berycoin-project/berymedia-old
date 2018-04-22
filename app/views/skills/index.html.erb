@@ -22,9 +22,20 @@
                 <tr>
                             <td><%= skill.title %></td>
                             <td><%= skill.level %></td>
-                            <td><%= link_to 'Show', skill %></td>
-                  <td><%= link_to 'Edit', edit_skill_path(skill) %></td>
-                  <td><%= link_to 'Destroy', skill, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                  <td>
+                    <%= link_to skill, class: "btn btn-info btn-icon btn-sm " do%>
+                      <i class="fa fa-eye"></i>
+                    <% end %>
+                      </td>
+                  <td>
+                    <%= link_to edit_skill_path(skill), class: "btn btn-success btn-icon btn-sm " do%>
+                      <i class="now-ui-icons ui-2_settings-90"></i>
+                    <% end %>
+                      </td>
+                  <td><%= link_to skill, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-icon btn-sm " do%>
+                      <i class="now-ui-icons ui-1_simple-remove"></i>
+                    <% end %>
+                      </td>
                 </tr>
               <% end %>
             </tbody>
@@ -32,7 +43,7 @@
 
           <br>
 
-          <%= link_to 'New Skill', new_skill_path %>
+          <%= link_to 'New Skill', new_skill_path, class: "btn btn-info" %>
         </div>
       </div>
     </div>
