@@ -15,4 +15,7 @@ class Article < ApplicationRecord
   has_many :comments, through: :comment_managers
 
   has_many :article_managers
+
+  has_many :category_managers
+  has_many :categories, through: :category_managers
 end
