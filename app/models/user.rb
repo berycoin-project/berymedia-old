@@ -39,6 +39,8 @@ class User < ApplicationRecord
   has_many :comment_managers
   has_many :comments, through: :comment_managers
 
+  has_many :article_managers
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,

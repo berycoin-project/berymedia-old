@@ -13,4 +13,6 @@ class Course < ApplicationRecord
 
   has_many :comment_managers
   has_many :comments, through: :comment_managers
+
+  has_many :article_managers
 end
