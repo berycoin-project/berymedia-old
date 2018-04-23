@@ -182,7 +182,14 @@
         if ($('.slider').length != 0) {
             demo.initSliders();
         }
-        $('#summernote').summernote();
+    });
+    $(document).ready(function () {
+        $('.summernote').summernote({
+            placeholder: 'Type your project content here',
+            tabsize: 2,
+            height: 300,
+            focus: true
+        });
     });
 </script>
 <%= render 'shared/footer' %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180423125853) do
+ActiveRecord::Schema.define(version: 20180423214641) do
 
   create_table "addresses", force: :cascade do |t|
     t.text     "street"
@@ -19,6 +19,19 @@ ActiveRecord::Schema.define(version: 20180423125853) do
     t.integer  "zip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "article_managers", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "article_id"
+    t.integer  "course_id"
+    t.integer  "project_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["article_id"], name: "index_article_managers_on_article_id"
+    t.index ["course_id"], name: "index_article_managers_on_course_id"
+    t.index ["project_id"], name: "index_article_managers_on_project_id"
+    t.index ["user_id"], name: "index_article_managers_on_user_id"
   end
 
   create_table "articles", force: :cascade do |t|
@@ -32,6 +45,36 @@ ActiveRecord::Schema.define(version: 20180423125853) do
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "category_managers", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "article_id"
+    t.integer  "course_id"
+    t.integer  "project_id"
+    t.integer  "category_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["article_id"], name: "index_category_managers_on_article_id"
+    t.index ["category_id"], name: "index_category_managers_on_category_id"
+    t.index ["course_id"], name: "index_category_managers_on_course_id"
+    t.index ["project_id"], name: "index_category_managers_on_project_id"
+    t.index ["user_id"], name: "index_category_managers_on_user_id"
+  end
+
+  create_table "comment_managers", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "article_id"
+    t.integer  "comment_id"
+    t.integer  "course_id"
+    t.integer  "project_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["article_id"], name: "index_comment_managers_on_article_id"
+    t.index ["comment_id"], name: "index_comment_managers_on_comment_id"
+    t.index ["course_id"], name: "index_comment_managers_on_course_id"
+    t.index ["project_id"], name: "index_comment_managers_on_project_id"
+    t.index ["user_id"], name: "index_comment_managers_on_user_id"
   end
 
   create_table "comments", force: :cascade do |t|
@@ -112,6 +155,23 @@ ActiveRecord::Schema.define(version: 20180423125853) do
     t.integer  "value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "reaction_managers", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "article_id"
+    t.integer  "course_id"
+    t.integer  "project_id"
+    t.integer  "reaction_id"
+    t.integer  "comment_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["article_id"], name: "index_reaction_managers_on_article_id"
+    t.index ["comment_id"], name: "index_reaction_managers_on_comment_id"
+    t.index ["course_id"], name: "index_reaction_managers_on_course_id"
+    t.index ["project_id"], name: "index_reaction_managers_on_project_id"
+    t.index ["reaction_id"], name: "index_reaction_managers_on_reaction_id"
+    t.index ["user_id"], name: "index_reaction_managers_on_user_id"
   end
 
   create_table "reactions", force: :cascade do |t|

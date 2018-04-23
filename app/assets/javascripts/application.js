@@ -11,6 +11,4 @@
 // about supported directives.
 //
 //= require turbolinks
-//= require summernote/summernote-bs4.min
-//= require summernote-init
 //= require_tree .
