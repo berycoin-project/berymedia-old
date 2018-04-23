@@ -5,7 +5,7 @@ class SkillsController < ApplicationController
   # GET /skills
   # GET /skills.json
   def index
-    @skills = current_user.profiles.first.skills.all
+    @skills = current_user.skills.all
   end
 
   # GET /skills/1
@@ -32,7 +32,7 @@ class SkillsController < ApplicationController
         @skill = Skill.new(skill_params)
         respond_to do |format|
           if @skill.save
-            current_user.profiles.first.skills << @skill
+            current_user.skills << @skill
 
             format.html { redirect_to @skill, notice: 'Skill was successfully created.' }
             format.json { render :show, status: :created, location: @skill }
@@ -42,7 +42,7 @@ class SkillsController < ApplicationController
           end
         end
       else
-        current_user.profiles.first.skills << @skill
+        current_user.skills << @skill
         respond_to do |format|
           format.html { redirect_to @skill, notice: 'Skill was successfully added to your Profile. ' }
           format.json { render :show, status: :created, location: @skill }
@@ -72,7 +72,7 @@ class SkillsController < ApplicationController
   # DELETE /skills/1
   # DELETE /skills/1.json
   def destroy
-    profileSkill = ProfileSkill.find_by_skill_id(@skill.id)
+    profileSkill = ProfileManager.find_by_skill_id(@skill.id)
     if profileSkill.destroy
       respond_to do |format|
         format.html { redirect_to skills_url, notice: 'Skill was successfully destroyed.' }
@@ -91,7 +91,7 @@ class SkillsController < ApplicationController
       @skill = Skill.find(params[:id])
     end
     def skill_already_exists?(opt = {})
-      current_user.profiles.first.skills.all.where(title: opt[:title]).count == 1
+      current_user.skills.all.where(title: opt[:title]).count == 1
     end
     # Never trust parameters from the scary internet, only allow the white list through.
     def skill_params
