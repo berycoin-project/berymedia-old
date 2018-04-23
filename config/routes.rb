@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :cources
   resources :articles
   resources :comments
   resources :statuses
