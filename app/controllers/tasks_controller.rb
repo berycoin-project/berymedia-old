@@ -66,9 +66,9 @@ class TasksController < ApplicationController
     def set_task
       @task = Task.find(params[:id])
     end
-  def task_already_exists?(opt = {})
-    current_user.tasks.all.where(title: opt[:title]).count == 1
-  end
+    def task_already_exists?(opt = {})
+      current_user.tasks.all.where(title: opt[:title]).count == 1
+    end
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
       params.require(:task).permit(:title, :description)

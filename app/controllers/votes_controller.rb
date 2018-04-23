@@ -66,7 +66,9 @@ class VotesController < ApplicationController
     def set_vote
       @vote = Vote.find(params[:id])
     end
-
+    def vote_already_exists?(opt = {})
+      current_user.votes.all.where(type: opt[:type]).count == 1
+    end
     # Never trust parameters from the scary internet, only allow the white list through.
     def vote_params
       params.require(:vote).permit(:weight, :type, :description)
