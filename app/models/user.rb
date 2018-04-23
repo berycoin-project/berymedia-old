@@ -24,6 +24,11 @@ class User < ApplicationRecord
   has_many :project_tasks
   has_many :tasks, through: :project_tasks
 
+  has_many :project_votes
+  has_many :votes, through: :project_votes
+
+
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
