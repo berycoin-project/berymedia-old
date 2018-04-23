@@ -67,7 +67,9 @@ class WalletsController < ApplicationController
     def set_wallet
       @wallet = Wallet.find(params[:id])
     end
-
+    def wallet_already_exists?(opt = {})
+      current_user.wallets.all.where(label: opt[:label]).count == 1
+    end
     # Never trust parameters from the scary internet, only allow the white list through.
     def wallet_params
       params.require(:wallet).permit(:label, :address, :balance)
