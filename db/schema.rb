@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180422041826) do
+ActiveRecord::Schema.define(version: 20180423102154) do
 
   create_table "addresses", force: :cascade do |t|
     t.text     "street"
@@ -34,49 +34,21 @@ ActiveRecord::Schema.define(version: 20180422041826) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "profile_addresses", force: :cascade do |t|
-    t.integer  "profile_id"
+  create_table "profile_managers", force: :cascade do |t|
+    t.integer  "user_id"
     t.integer  "address_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["address_id"], name: "index_profile_addresses_on_address_id"
-    t.index ["profile_id"], name: "index_profile_addresses_on_profile_id"
-  end
-
-  create_table "profile_contacts", force: :cascade do |t|
-    t.integer  "profile_id"
     t.integer  "contact_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["contact_id"], name: "index_profile_contacts_on_contact_id"
-    t.index ["profile_id"], name: "index_profile_contacts_on_profile_id"
-  end
-
-  create_table "profile_ranks", force: :cascade do |t|
-    t.integer  "profile_id"
     t.integer  "rank_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["profile_id"], name: "index_profile_ranks_on_profile_id"
-    t.index ["rank_id"], name: "index_profile_ranks_on_rank_id"
-  end
-
-  create_table "profile_skills", force: :cascade do |t|
-    t.integer  "profile_id"
     t.integer  "skill_id"
+    t.integer  "social_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["profile_id"], name: "index_profile_skills_on_profile_id"
-    t.index ["skill_id"], name: "index_profile_skills_on_skill_id"
-  end
-
-  create_table "profiles", force: :cascade do |t|
-    t.date     "date_of_birth"
-    t.string   "gender"
-    t.string   "about_me"
-    t.string   "company"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.index ["address_id"], name: "index_profile_managers_on_address_id"
+    t.index ["contact_id"], name: "index_profile_managers_on_contact_id"
+    t.index ["rank_id"], name: "index_profile_managers_on_rank_id"
+    t.index ["skill_id"], name: "index_profile_managers_on_skill_id"
+    t.index ["social_id"], name: "index_profile_managers_on_social_id"
+    t.index ["user_id"], name: "index_profile_managers_on_user_id"
   end
 
   create_table "ranks", force: :cascade do |t|
@@ -100,15 +72,6 @@ ActiveRecord::Schema.define(version: 20180422041826) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "social_profiles", force: :cascade do |t|
-    t.integer  "profile_id"
-    t.integer  "social_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["profile_id"], name: "index_social_profiles_on_profile_id"
-    t.index ["social_id"], name: "index_social_profiles_on_social_id"
-  end
-
   create_table "socials", force: :cascade do |t|
     t.string   "name"
     t.string   "link"
@@ -123,15 +86,6 @@ ActiveRecord::Schema.define(version: 20180422041826) do
     t.datetime "updated_at",     null: false
     t.index ["information_id"], name: "index_user_informations_on_information_id"
     t.index ["user_id"], name: "index_user_informations_on_user_id"
-  end
-
-  create_table "user_profiles", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "profile_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["profile_id"], name: "index_user_profiles_on_profile_id"
-    t.index ["user_id"], name: "index_user_profiles_on_user_id"
   end
 
   create_table "user_roles", force: :cascade do |t|

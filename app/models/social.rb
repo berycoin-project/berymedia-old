@@ -1,4 +1,4 @@
 class Social < ApplicationRecord
-  has_many :social_profiles
-  has_many :profiles, through: :social_profiles
+  has_many :profile_managers
+  has_many :users, through: :profile_managers
 end

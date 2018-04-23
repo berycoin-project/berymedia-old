@@ -6,7 +6,7 @@ class RanksController < ApplicationController
   # GET /ranks
   # GET /ranks.json
   def index
-    @ranks = current_user.profiles.first.ranks.all
+    @ranks = Rank.all
   end
 
   # GET /ranks/1
@@ -31,9 +31,6 @@ class RanksController < ApplicationController
 
       respond_to do |format|
         if @rank.save
-          ## Add rank to current user's profile
-          current_user.profiles.first.ranks << @rank
-
           format.html { redirect_to @rank, notice: 'Rank was successfully created.' }
           format.json { render :show, status: :created, location: @rank }
         else

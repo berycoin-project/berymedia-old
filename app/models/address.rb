@@ -1,4 +1,4 @@
 class Address < ApplicationRecord
-  has_many :profile_addresses
-  has_many :profiles, through: :profile_addresses
+  has_many :profile_managers
+  has_many :users, through: :profile_managers
 end

@@ -4,7 +4,6 @@ Rails.application.routes.draw do
   resources :contacts
   resources :skills
   resources :ranks
-  resources :profiles
   resources :wallets
   resources :roles
   resources :information
