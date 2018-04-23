@@ -8,6 +8,7 @@ class RolesController < ApplicationController
   # GET /roles.json
   def index
     @roles = current_user.roles.all
+    @allRoles = Role.all
   end
 
   # GET /roles/1

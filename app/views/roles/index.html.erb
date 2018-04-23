@@ -18,15 +18,28 @@
             </thead>
 
             <tbody>
-              <% @roles.each do |role| %>
+            <% if is_leader? %>
+              <% @allRoles.each do |role| %>
                 <tr>
-                            <td><%= role.name %></td>
-                            <td><%= role.description %></td>
-                            <td><%= link_to 'Show', role %></td>
+                  <td><%= role.name %></td>
+                  <td><%= role.description %></td>
+                  <td><%= link_to 'Show', role %></td>
                   <td><%= link_to 'Edit', edit_role_path(role) %></td>
-                  <td><%= link_to 'Destroy', role, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                  <td><%= link_to 'Destroy', role, method: :delete, data: {confirm: 'Are you sure?'} %></td>
                 </tr>
               <% end %>
+            <% else %>
+              <% @roles.each do |role| %>
+                <tr>
+                  <td><%= role.name %></td>
+                  <td><%= role.description %></td>
+                  <td><%= link_to 'Show', role %></td>
+                  <td><%= link_to 'Edit', edit_role_path(role) %></td>
+                  <td><%= link_to 'Destroy', role, method: :delete, data: {confirm: 'Are you sure?'} %></td>
+                </tr>
+              <% end %>
+            <% end %>
+
             </tbody>
           </table>
 
