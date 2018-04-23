@@ -5,7 +5,7 @@ class SocialsController < ApplicationController
   # GET /socials
   # GET /socials.json
   def index
-    @socials = current_user.profiles.first.socials.all
+    @socials = current_user.socials.all
   end
 
   # GET /socials/1
@@ -30,7 +30,7 @@ class SocialsController < ApplicationController
 
       respond_to do |format|
         if @social.save
-          current_user.profiles.first.socials << @social
+          current_user.socials << @social
           format.html { redirect_to @social, notice: 'Social was successfully created.' }
           format.json { render :show, status: :created, location: @social }
         else
@@ -63,7 +63,7 @@ class SocialsController < ApplicationController
   # DELETE /socials/1
   # DELETE /socials/1.json
   def destroy
-    socialAddress = SocialProfile.find_by_social_id(@social.id)
+    socialAddress = ProfileManager.find_by_social_id(@social.id)
     if @social.destroy
       if socialAddress.destroy
         respond_to do |format|
@@ -88,7 +88,7 @@ class SocialsController < ApplicationController
       @social = Social.find(params[:id])
     end
     def social_already_exists?(opt = {})
-      current_user.profiles.first.socials.all.where(link: opt[:link]).count == 1
+      current_user.socials.all.where(link: opt[:link]).count == 1
     end
     # Never trust parameters from the scary internet, only allow the white list through.
     def social_params
