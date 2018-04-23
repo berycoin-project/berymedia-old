@@ -10,4 +10,7 @@ class Comment < ApplicationRecord
 
   has_many :comment_managers
   has_many :projects, through: :comment_managers
+
+  has_many :reaction_managers
+  has_many :reactions, through: :reaction_managers
 end

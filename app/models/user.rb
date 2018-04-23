@@ -44,6 +44,8 @@ class User < ApplicationRecord
   has_many :category_managers
   has_many :categories, through: :category_managers
 
+  has_many :reaction_managers
+  has_many :reactions, through: :reaction_managers
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
