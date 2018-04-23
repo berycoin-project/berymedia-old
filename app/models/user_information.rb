@@ -1,4 +1,4 @@
 class UserInformation < ApplicationRecord
-  belongs_to :information
-  belongs_to :user
+  belongs_to :information, optional: true
+  belongs_to :user, optional: true
 end
