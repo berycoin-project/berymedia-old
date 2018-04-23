@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180423102154) do
+ActiveRecord::Schema.define(version: 20180423125853) do
 
   create_table "addresses", force: :cascade do |t|
     t.text     "street"
@@ -21,10 +21,36 @@ ActiveRecord::Schema.define(version: 20180423102154) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "articles", force: :cascade do |t|
+    t.string   "title"
+    t.text     "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "categories", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.text     "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "contacts", force: :cascade do |t|
     t.string   "number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "courses", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "information", force: :cascade do |t|
@@ -51,9 +77,45 @@ ActiveRecord::Schema.define(version: 20180423102154) do
     t.index ["user_id"], name: "index_profile_managers_on_user_id"
   end
 
+  create_table "project_tasks", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "task_id"
+    t.integer  "project_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_project_tasks_on_project_id"
+    t.index ["task_id"], name: "index_project_tasks_on_task_id"
+    t.index ["user_id"], name: "index_project_tasks_on_user_id"
+  end
+
+  create_table "project_votes", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "vote_id"
+    t.integer  "project_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_project_votes_on_project_id"
+    t.index ["user_id"], name: "index_project_votes_on_user_id"
+    t.index ["vote_id"], name: "index_project_votes_on_vote_id"
+  end
+
+  create_table "projects", force: :cascade do |t|
+    t.string   "title"
+    t.text     "content"
+    t.float    "budget"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "ranks", force: :cascade do |t|
     t.string   "name"
     t.integer  "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "reactions", force: :cascade do |t|
+    t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -77,6 +139,34 @@ ActiveRecord::Schema.define(version: 20180423102154) do
     t.string   "link"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "status_managers", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "status_id"
+    t.integer  "project_id"
+    t.integer  "article_id"
+    t.integer  "course_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["article_id"], name: "index_status_managers_on_article_id"
+    t.index ["course_id"], name: "index_status_managers_on_course_id"
+    t.index ["project_id"], name: "index_status_managers_on_project_id"
+    t.index ["status_id"], name: "index_status_managers_on_status_id"
+    t.index ["user_id"], name: "index_status_managers_on_user_id"
+  end
+
+  create_table "statuses", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "tasks", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "user_informations", force: :cascade do |t|
@@ -122,6 +212,14 @@ ActiveRecord::Schema.define(version: 20180423102154) do
     t.string   "name"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  create_table "votes", force: :cascade do |t|
+    t.float    "weight"
+    t.boolean  "type"
+    t.text     "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "wallets", force: :cascade do |t|
