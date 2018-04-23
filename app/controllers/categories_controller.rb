@@ -66,7 +66,9 @@ class CategoriesController < ApplicationController
     def set_category
       @category = Category.find(params[:id])
     end
-
+    def category_already_exists?(opt = {})
+      current_user.categories.all.where(name: opt[:name]).count == 1
+    end
     # Never trust parameters from the scary internet, only allow the white list through.
     def category_params
       params.require(:category).permit(:name)
