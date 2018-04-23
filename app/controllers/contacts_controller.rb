@@ -5,7 +5,7 @@ class ContactsController < ApplicationController
   # GET /contacts
   # GET /contacts.json
   def index
-    @contacts = current_user.profiles.first.contacts.all
+    @contacts = current_user.contacts.all
   end
 
   # GET /contacts/1
@@ -30,6 +30,7 @@ class ContactsController < ApplicationController
 
       respond_to do |format|
         if @contact.save
+          current_user.contacts << @contact
           format.html { redirect_to @contact, notice: 'Contact was successfully created.' }
           format.json { render :show, status: :created, location: @contact }
         else
@@ -61,7 +62,7 @@ class ContactsController < ApplicationController
   # DELETE /contacts/1
   # DELETE /contacts/1.json
   def destroy
-    profileContact = ProfileContact.find_by_contact_id(@contact.id)
+    profileContact = ProfileManager.find_by_contact_id(@contact.id)
     if @contact.destroy
       if profileContact.destroy
         respond_to do |format|
@@ -86,7 +87,7 @@ class ContactsController < ApplicationController
       @contact = Contact.find(params[:id])
     end
     def contact_already_exists?(opt = {})
-      current_user.profiles.first.contacts.all.where(number: opt[:number]).count == 1
+      current_user.contacts.all.where(number: opt[:number]).count == 1
     end
     # Never trust parameters from the scary internet, only allow the white list through.
     def contact_params
