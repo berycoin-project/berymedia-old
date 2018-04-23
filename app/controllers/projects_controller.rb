@@ -66,7 +66,9 @@ class ProjectsController < ApplicationController
     def set_project
       @project = Project.find(params[:id])
     end
-
+    def project_already_exists?(opt = {})
+      current_user.projects.all.where(title: opt[:title]).count == 1
+    end
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
       params.require(:project).permit(:title, :content, :budget)
