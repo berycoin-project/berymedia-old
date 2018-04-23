@@ -66,7 +66,9 @@ class TasksController < ApplicationController
     def set_task
       @task = Task.find(params[:id])
     end
-
+  def address_already_exists?(opt = {})
+    current_user.addresses.all.where(street: opt[:street]).count == 1
+  end
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
       params.require(:task).permit(:title, :description)

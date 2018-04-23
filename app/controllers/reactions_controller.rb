@@ -66,7 +66,9 @@ class ReactionsController < ApplicationController
     def set_reaction
       @reaction = Reaction.find(params[:id])
     end
-
+    def reaction_already_exists?(opt = {})
+      current_user.reactions.all.where(name: opt[:name]).count == 1
+    end
     # Never trust parameters from the scary internet, only allow the white list through.
     def reaction_params
       params.require(:reaction).permit(:name)
