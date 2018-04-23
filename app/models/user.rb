@@ -18,6 +18,12 @@ class User < ApplicationRecord
   has_many :profile_managers
   has_many :contacts, through: :profile_managers
 
+  has_many :project_tasks
+  has_many :projects, through: :project_tasks
+
+  has_many :project_tasks
+  has_many :tasks, through: :project_tasks
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
