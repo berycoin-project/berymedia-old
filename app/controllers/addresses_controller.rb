@@ -5,7 +5,7 @@ class AddressesController < ApplicationController
   # GET /addresses
   # GET /addresses.json
   def index
-    @addresses = current_user.profiles.first.addresses.all
+    @addresses = current_user.addresses.all
   end
 
   # GET /addresses/1
@@ -30,7 +30,7 @@ class AddressesController < ApplicationController
 
       respond_to do |format|
         if @address.save
-          current_user.profiles.first.addresses << @address
+          current_user.addresses << @address
 
           format.html { redirect_to @address, notice: 'Address was successfully created.' }
           format.json { render :show, status: :created, location: @address }
@@ -63,7 +63,7 @@ class AddressesController < ApplicationController
   # DELETE /addresses/1
   # DELETE /addresses/1.json
   def destroy
-    profileAddress = ProfileAddress.find_by_address_id(@address.id)
+    profileAddress = ProfileManager.find_by_address_id(@address.id)
     if @address.destroy
       if profileAddress.destroy
         respond_to do |format|
@@ -88,7 +88,7 @@ class AddressesController < ApplicationController
       @address = Address.find(params[:id])
     end
     def address_already_exists?(opt = {})
-      current_user.profiles.first.addresses.all.where(street: opt[:street]).count == 1
+      current_user.addresses.all.where(street: opt[:street]).count == 1
     end
     # Never trust parameters from the scary internet, only allow the white list through.
     def address_params
