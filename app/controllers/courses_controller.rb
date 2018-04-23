@@ -66,7 +66,9 @@ class CoursesController < ApplicationController
     def set_course
       @course = Course.find(params[:id])
     end
-
+    def course_already_exists?(opt = {})
+      current_user.courses.all.where(title: opt[:title]).count == 1
+    end
     # Never trust parameters from the scary internet, only allow the white list through.
     def course_params
       params.require(:course).permit(:title, :description)
