@@ -1,7 +1,7 @@
 class CommentManager < ApplicationRecord
-  belongs_to :project
+  belongs_to :project, optional: true
   belongs_to :user
-  belongs_to :article
-  belongs_to :comment
-  belongs_to :course
+  belongs_to :article, optional: true
+  belongs_to :comment, optional: true
+  belongs_to :course, optional: true
 end

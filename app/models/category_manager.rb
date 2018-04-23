@@ -1,7 +1,7 @@
 class CategoryManager < ApplicationRecord
-  belongs_to :category
-  belongs_to :article
-  belongs_to :course
+  belongs_to :category, optional: true
+  belongs_to :article, optional: true
+  belongs_to :course, optional: true
   belongs_to :user
-  belongs_to :project
+  belongs_to :project, optional: true
 end
