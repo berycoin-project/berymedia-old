@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
+  resources :courses
   resources :votes
   resources :categories
-  resources :cources
   resources :articles
   resources :comments
   resources :statuses

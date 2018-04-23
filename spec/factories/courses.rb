@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :cource do
+  factory :course do
     title ""
     description "MyText"
   end

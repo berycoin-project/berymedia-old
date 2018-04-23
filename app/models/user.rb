@@ -27,7 +27,14 @@ class User < ApplicationRecord
   has_many :project_votes
   has_many :votes, through: :project_votes
 
+  has_many :status_managers
+  has_many :statuses, through: :status_managers
 
+  has_many :status_managers
+  has_many :courses, through: :status_managers
+
+  has_many :status_managers
+  has_many :articles, through: :status_managers
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
