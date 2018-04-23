@@ -66,7 +66,9 @@ class CommentsController < ApplicationController
     def set_comment
       @comment = Comment.find(params[:id])
     end
-
+    def comment_already_exists?(opt = {})
+      current_user.comments.all.where(content: opt[:content]).count == 1
+    end
     # Never trust parameters from the scary internet, only allow the white list through.
     def comment_params
       params.require(:comment).permit(:content)
