@@ -6,6 +6,7 @@ class User < ApplicationRecord
   has_many :roles, through: :user_roles
   has_many :user_wallets
   has_many :wallets, through: :user_wallets
+
   has_many :profile_managers
   has_many :addresses, through: :profile_managers
   has_many :profile_managers
