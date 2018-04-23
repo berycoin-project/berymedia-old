@@ -4,7 +4,7 @@ class ArticlesController < ApplicationController
   # GET /articles
   # GET /articles.json
   def index
-    @articles = Article.all
+    @articles = current_user.articles.all
   end
 
   # GET /articles/1
@@ -66,7 +66,9 @@ class ArticlesController < ApplicationController
     def set_article
       @article = Article.find(params[:id])
     end
-
+    def article_already_exists?(opt = {})
+      current_user.articles.all.where(title: opt[:title]).count == 1
+    end
     # Never trust parameters from the scary internet, only allow the white list through.
     def article_params
       params.require(:article).permit(:title, :content)
