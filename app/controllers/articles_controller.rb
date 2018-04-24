@@ -30,6 +30,8 @@ class ArticlesController < ApplicationController
 
       respond_to do |format|
         if @article.save
+
+          @article.statuses << newStatus
           current_user.articles << @article
 
           format.html { redirect_to @article, notice: 'Article was successfully created.' }
