@@ -6,7 +6,7 @@ class StatusesController < ApplicationController
   # GET /statuses
   # GET /statuses.json
   def index
-    @statuses = current_user.statuses.all
+    @statuses = Status.all
   end
 
   # GET /statuses/1
@@ -69,7 +69,7 @@ class StatusesController < ApplicationController
       @status = Status.find(params[:id])
     end
     def status_already_exists?(opt = {})
-      current_user.statuses.all.where(name: opt[:name]).count == 1
+      Status.all.where(name: opt[:name]).count == 1
     end
     # Never trust parameters from the scary internet, only allow the white list through.
     def status_params
