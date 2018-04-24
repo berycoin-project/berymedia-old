@@ -1,5 +1,6 @@
 class CategoriesController < ApplicationController
-  before_action :authenticate_user!, except: [:show, :index]
+  before_action :needs_to_be_leader
+  before_action :authenticate_user!
   before_action :set_category, only: [:show, :edit, :update, :destroy]
 
   # GET /categories
@@ -25,14 +26,23 @@ class CategoriesController < ApplicationController
   # POST /categories
   # POST /categories.json
   def create
-    @category = Category.new(category_params)
+    if !category_already_exists?(category_params)
+      @category = category.new(category_params)
 
-    respond_to do |format|
-      if @category.save
-        format.html { redirect_to @category, notice: 'Category was successfully created.' }
-        format.json { render :show, status: :created, location: @category }
-      else
-        format.html { render :new }
+      respond_to do |format|
+        if @category.save
+          current_user.categories << @category
+
+          format.html { redirect_to @category, notice: 'category was successfully created.' }
+          format.json { render :show, status: :created, location: @category }
+        else
+          format.html { render :new }
+          format.json { render json: @category.errors, status: :unprocessable_entity }
+        end
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to categories_path, :flash => { :error => "This category already Exists" } }
         format.json { render json: @category.errors, status: :unprocessable_entity }
       end
     end
