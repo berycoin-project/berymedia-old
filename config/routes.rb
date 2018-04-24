@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'visitors', to: 'visitors#index'
+
   resources :courses
   resources :votes
   resources :categories
@@ -16,7 +18,7 @@ Rails.application.routes.draw do
   resources :wallets
   resources :roles
   resources :information
-  root to: 'visitors#index'
+  root to: 'user_dashboard#index'
   devise_for :users, controllers: {
       sessions: 'sessions',
       registrations: 'registrations'
