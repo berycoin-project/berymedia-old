@@ -2,19 +2,25 @@ class User < ApplicationRecord
 
   has_many :user_information
   has_many :information, through: :user_information
+
   has_many :user_roles
   has_many :roles, through: :user_roles
+
   has_many :user_wallets
   has_many :wallets, through: :user_wallets
 
   has_many :profile_managers
   has_many :addresses, through: :profile_managers
+
   has_many :profile_managers
   has_many :ranks, through: :profile_managers
+
   has_many :profile_managers
   has_many :socials, through: :profile_managers
+
   has_many :profile_managers
   has_many :skills, through: :profile_managers
+
   has_many :profile_managers
   has_many :contacts, through: :profile_managers
 
@@ -33,13 +39,11 @@ class User < ApplicationRecord
   has_many :user_courses
   has_many :courses, through: :user_courses
 
-  has_many :status_managers
-  has_many :articles, through: :status_managers
+  has_many :article_managers
+  has_many :articles, through: :article_managers
 
   has_many :comment_managers
   has_many :comments, through: :comment_managers
-
-  has_many :article_managers
 
   has_many :category_managers
   has_many :categories, through: :category_managers
