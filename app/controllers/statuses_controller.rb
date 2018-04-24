@@ -1,4 +1,5 @@
 class StatusesController < ApplicationController
+  before_action :needs_to_be_leader
   before_action :authenticate_user!, except: [:show, :index]
   before_action :set_status, only: [:show, :edit, :update, :destroy]
 

@@ -27,7 +27,7 @@ class CategoriesController < ApplicationController
   # POST /categories.json
   def create
     if !category_already_exists?(category_params)
-      @category = category.new(category_params)
+      @category = Category.new(category_params)
 
       respond_to do |format|
         if @category.save

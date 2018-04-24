@@ -26,7 +26,7 @@ class ArticlesController < ApplicationController
   # POST /articles.json
   def create
     if !article_already_exists?(article_params)
-      @article = article.new(article_params)
+      @article = Article.new(article_params)
 
       respond_to do |format|
         if @article.save

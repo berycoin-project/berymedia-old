@@ -25,14 +25,23 @@ class ProjectsController < ApplicationController
   # POST /projects
   # POST /projects.json
   def create
-    @project = Project.new(project_params)
+    if !project_already_exists?(project_params)
+      @project = Project.new(project_params)
 
-    respond_to do |format|
-      if @project.save
-        format.html { redirect_to @project, notice: 'Project was successfully created.' }
-        format.json { render :show, status: :created, location: @project }
-      else
-        format.html { render :new }
+      respond_to do |format|
+        if @project.save
+          current_user.projects << @project
+
+          format.html { redirect_to @project, notice: 'Project was successfully created.' }
+          format.json { render :show, status: :created, location: @project }
+        else
+          format.html { render :new }
+          format.json { render json: @project.errors, status: :unprocessable_entity }
+        end
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to projects_path, :flash => { :error => "This project already Exists" } }
         format.json { render json: @project.errors, status: :unprocessable_entity }
       end
     end
