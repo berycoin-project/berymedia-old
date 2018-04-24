@@ -18,8 +18,8 @@ class User < ApplicationRecord
   has_many :profile_managers
   has_many :contacts, through: :profile_managers
 
-  has_many :project_tasks
-  has_many :projects, through: :project_tasks
+  has_many :user_projects
+  has_many :projects, through: :user_projects
 
   has_many :project_tasks
   has_many :tasks, through: :project_tasks
