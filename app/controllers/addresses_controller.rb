@@ -42,6 +42,7 @@ class AddressesController < ApplicationController
     else
       respond_to do |format|
         format.html { redirect_to addresses_path, :flash => { :error => "This Address already Exists" } }
+        format.json { render json: @address.errors, status: :unprocessable_entity }
       end
     end
   end

@@ -1,4 +1,5 @@
 class VotesController < ApplicationController
+  before_action :authenticate_user!, except: [:show, :index]
   before_action :set_vote, only: [:show, :edit, :update, :destroy]
 
   # GET /votes

@@ -1,4 +1,5 @@
 class ReactionsController < ApplicationController
+  before_action :authenticate_user!, except: [:show, :index]
   before_action :set_reaction, only: [:show, :edit, :update, :destroy]
 
   # GET /reactions
