@@ -5,7 +5,7 @@ class ReactionsController < ApplicationController
   # GET /reactions
   # GET /reactions.json
   def index
-    @reactions = Reaction.all
+    @reactions = current_user.reactions.all
   end
 
   # GET /reactions/1
