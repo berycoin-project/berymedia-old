@@ -30,8 +30,8 @@ class User < ApplicationRecord
   has_many :status_managers
   has_many :statuses, through: :status_managers
 
-  has_many :status_managers
-  has_many :courses, through: :status_managers
+  has_many :user_courses
+  has_many :courses, through: :user_courses
 
   has_many :status_managers
   has_many :articles, through: :status_managers
