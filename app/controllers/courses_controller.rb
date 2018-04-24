@@ -25,14 +25,23 @@ class CoursesController < ApplicationController
   # POST /courses
   # POST /courses.json
   def create
-    @course = Course.new(course_params)
+    if !course_already_exists?(course_params)
+      @course = Course.new(course_params)
 
-    respond_to do |format|
-      if @course.save
-        format.html { redirect_to @course, notice: 'Course was successfully created.' }
-        format.json { render :show, status: :created, location: @course }
-      else
-        format.html { render :new }
+      respond_to do |format|
+        if @course.save
+          current_user.courses << @course
+
+          format.html { redirect_to @course, notice: 'Course was successfully created.' }
+          format.json { render :show, status: :created, location: @course }
+        else
+          format.html { render :new }
+          format.json { render json: @course.errors, status: :unprocessable_entity }
+        end
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to courses_path, :flash => { :error => "This course already Exists" } }
         format.json { render json: @course.errors, status: :unprocessable_entity }
       end
     end
