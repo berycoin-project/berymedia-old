@@ -3,7 +3,7 @@ class Project < ApplicationRecord
   has_many :tasks, through: :project_tasks
 
   has_many :user_projects
-  has_many :users, through: :user_projects
+  has_many :users, through: :user_projects, dependent: :destroy
 
   has_many :project_votes
   has_many :votes, through: :project_votes
