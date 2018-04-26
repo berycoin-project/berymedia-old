@@ -1,5 +1,5 @@
 class AddressesController < ApplicationController
-  before_action :authenticate_user!, except: [:show, :index]
+  before_action :authenticate_user!
   before_action :set_address, only: [:show, :edit, :update, :destroy]
 
   # GET /addresses
@@ -64,22 +64,10 @@ class AddressesController < ApplicationController
   # DELETE /addresses/1
   # DELETE /addresses/1.json
   def destroy
-    profileAddress = ProfileManager.find_by_address_id(@address.id)
-    if @address.destroy
-      if profileAddress.destroy
-        respond_to do |format|
-          format.html { redirect_to addresses_url, notice: 'Address was successfully destroyed.' }
-          format.json { head :no_content }
-        end
-      else
-        respond_to do |format|
-          format.html { redirect_to root_path, :flash => { :error => "Profile Address was not deleted" } }
-        end
-      end
-    else
-      respond_to do |format|
-        format.html { redirect_to root_path, :flash => { :error => "Could not delete the Address" } }
-      end
+    @address.destroy
+    respond_to do |format|
+      format.html { redirect_to addresses_url, notice: 'Address was successfully destroyed.' }
+      format.json { head :no_content }
     end
   end
 
