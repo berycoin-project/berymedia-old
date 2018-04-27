@@ -24,6 +24,5 @@ Rails.application.routes.draw do
       registrations: 'registrations'
   }
   resources :users
-
   get 'about', to: 'pages#about'
 end
