@@ -4,7 +4,9 @@ Rails.application.routes.draw do
   resources :courses
   resources :votes
   resources :categories
-  resources :articles
+  resources :articles do
+    resources :comments, :controller => "article_comments", only: [:create]
+  end
   resources :comments
   resources :statuses
   resources :reactions
