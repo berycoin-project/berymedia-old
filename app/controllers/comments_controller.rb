@@ -25,18 +25,23 @@ class CommentsController < ApplicationController
   # POST /comments
   # POST /comments.json
   def create
-    @comment = Comment.new(comment_params)
+    if !comment_already_exists?(comment_params)
+      @comment = Comment.new(comment_params)
 
+      respond_to do |format|
+        if @comment.save
+          current_user.comments << @comment
 
-    respond_to do |format|
-      if @comment.save
-        current_user.comments << @comment
-
-        format.html { redirect_to @comment, notice: 'Comment was successfully created.' }
-        format.json { render :show, status: :created, location: @comment }
-      else
-        format.html { render :new }
-        format.json { render json: @comment.errors, status: :unprocessable_entity }
+          format.html { redirect_to @comment, notice: 'Comment was successfully created.' }
+          format.json { render :show, status: :created, location: @comment }
+        else
+          format.html { render :new }
+          format.json { render json: @comment.errors, status: :unprocessable_entity }
+        end
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to comments_path, :flash => { :error => "This Comment already Exists" } }
       end
     end
   end
