@@ -11,7 +11,7 @@ class ProjectsController < ApplicationController
   # GET /projects/1
   # GET /projects/1.json
   def show
-    @comments = @article.comments.order('created_at DESC')
+    @comments = @project.comments.order('created_at DESC')
     @comment = Comment.new
   end
 
