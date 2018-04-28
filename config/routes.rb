@@ -1,7 +1,4 @@
 Rails.application.routes.draw do
-  get 'course_comments/show'
-
-  get 'course_comments/create'
 
   get 'visitors', to: 'visitors#index'
   resources :votes
@@ -27,6 +24,7 @@ Rails.application.routes.draw do
   end
   resources :projects do
     resources :comments, :controller => "project_comments", only: [:create]
+    resources :votes, :controller => "project_votes", only: [:create]
   end
 
   root to: 'user_dashboard#index'
