@@ -17,12 +17,11 @@ class ArticleCommentsController < ApplicationController
   end
 
   private
+    def comment_params
+      params.required(:comment).permit(:content)
+    end
 
-  def comment_params
-    params.required(:comment).permit(:content)
-  end
-
-  def article
-    @article ||= Article.find(params[:article_id])
-  end
+    def article
+      @article ||= Article.find(params[:article_id])
+    end
 end

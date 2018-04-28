@@ -91,7 +91,7 @@
               <span class="navbar-toggler-bar bar3"></span>
             </button>
           </div>
-          <a class="navbar-brand" href="#pablo"><%= content_for?(:title) ? yield(:title) : "BeryMedia" %></a>
+          <a class="navbar-brand"><%= content_for?(:head) ? yield(:head) : "BeryMedia" %></a>
         </div>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index"
                 aria-expanded="false" aria-label="Toggle navigation">
@@ -146,12 +146,18 @@
     <!-- End Navbar -->
     <div class="panel-header panel-header">
       <div class="header text-center">
-        <h2 class="title"><%= content_for?(:title) ? yield(:title) : "BeryMedia" %></h2>
-        <p class="category"> <%= content_for?(:description) ? yield(:description) : "Lets succeed together" %>
+        <h2 class="title"><%= content_for?(:head) ? yield(:head) : "BeryMedia" %></h2>
+        <p class="category"> <%= content_for?(:short) ? yield(:short) : "Lets succeed together" %>
           </br>
-          <a target="_blank" href="http://github.com/berycoin-project/berycoin">Github Repo</a>.
-          </br>Please check our website
-          <a target="_blank" href="http://berycoin.com">Berycoin</a>.
+          <% if content_for?(:lins) %>
+            <%= yield(:lins) %>
+          <%  else %>
+            <a target="_blank" href="http://berycoin.com"> www.berycoin.com </a>
+            |
+            <a target="_blank" href="http://github.com/berycoin-project">Github Repo</a>
+            |
+            <a target="_blank" href="http://facebook.com/bhbigheart">Facebook</a>
+          <%  end %>
         </p>
       </div>
     </div>
