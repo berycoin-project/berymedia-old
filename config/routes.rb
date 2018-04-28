@@ -1,17 +1,15 @@
 Rails.application.routes.draw do
-  get 'visitors', to: 'visitors#index'
+  get 'course_comments/show'
 
-  resources :courses
+  get 'course_comments/create'
+
+  get 'visitors', to: 'visitors#index'
   resources :votes
   resources :categories
-  resources :articles do
-    resources :comments, :controller => "article_comments", only: [:create]
-  end
   resources :comments
   resources :statuses
   resources :reactions
   resources :tasks
-  resources :projects
   resources :socials
   resources :addresses
   resources :contacts
@@ -20,6 +18,17 @@ Rails.application.routes.draw do
   resources :wallets
   resources :roles
   resources :information
+
+  resources :courses do
+    resources :comments, :controller => "course_comments", only: [:create]
+  end
+  resources :articles do
+    resources :comments, :controller => "article_comments", only: [:create]
+  end
+  resources :projects do
+    resources :comments, :controller => "project_comments", only: [:create]
+  end
+
   root to: 'user_dashboard#index'
   devise_for :users, controllers: {
       sessions: 'sessions',
