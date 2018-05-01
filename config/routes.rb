@@ -27,6 +27,7 @@ Rails.application.routes.draw do
     resources :reactions, :controller => "article_reactions", only: [:create]
   end
   resources :projects do
+    resources :tasks, :controller => "project_tasks", only: [:create]
     resources :comments, :controller => "project_comments", only: [:create]
     resources :votes, :controller => "project_votes", only: [:create]
     resources :reactions, :controller => "project_reactions", only: [:create]
