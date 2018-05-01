@@ -22,9 +22,8 @@ Before generating your application, you will need:
 
 h3. Installation 
 
-
-  git clone https://github.com/berycoin-project/berymedia.git
-  cd berymedia
-  rake db:migrate
-  rake db:seed
-  rails server
+* git clone https://github.com/berycoin-project/berymedia.git
+* cd berymedia
+* rake db:migrate
+* rake db:seed
+* rails server
