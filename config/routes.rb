@@ -29,7 +29,7 @@ Rails.application.routes.draw do
   resources :projects do
     resources :comments, :controller => "project_comments", only: [:create]
     resources :votes, :controller => "project_votes", only: [:create]
-    resources :reactions, :controller => "article_reactions", only: [:create]
+    resources :reactions, :controller => "project_reactions", only: [:create]
   end
 
   root to: 'user_dashboard#index'
