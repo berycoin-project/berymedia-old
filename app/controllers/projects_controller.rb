@@ -13,6 +13,8 @@ class ProjectsController < ApplicationController
   def show
     @comments = @project.comments.order('created_at DESC')
     @comment = Comment.new
+    @votes = @project.votes.order('created_at DESC')
+    @vote = Vote.new
   end
 
   # GET /projects/new

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180424195651) do
+ActiveRecord::Schema.define(version: 20180430182612) do
 
   create_table "addresses", force: :cascade do |t|
     t.text     "street"
@@ -294,7 +294,7 @@ ActiveRecord::Schema.define(version: 20180424195651) do
 
   create_table "votes", force: :cascade do |t|
     t.float    "weight"
-    t.boolean  "type"
+    t.string   "vote_type"
     t.text     "description"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false

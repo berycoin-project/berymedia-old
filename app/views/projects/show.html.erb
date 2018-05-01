@@ -12,7 +12,7 @@
                   </div>
                 </div>
                 <div class="col-7 text-right">
-                  <h3 class="info-title">Budget</h3>
+                  <h3 class="info-title">Funds</h3>
                   <h6 class="stats-title"><%= @project.budget %> BERY </h6>
                 </div>
               </div>
@@ -39,7 +39,7 @@
                   </div>
                 </div>
                 <div class="col-7 text-right">
-                  <h3 class="info-title">100</h3>
+                  <h3 class="info-title"><%= @project.votes.count %></h3>
                   <h6 class="stats-title">Votes</h6>
                 </div>
               </div>
@@ -50,7 +50,7 @@
         <div class="card-footer ">
           <div class="stats">
             <i class="fa fa-check"></i> Total weight
-            <span class="text-success"> 5000 </span>
+            <span class="text-success"> <b class="text-primary"><%= @project.votes.sum(&:weight) %></b> </span>
           </div>
         </div>
       </div>
@@ -161,155 +161,11 @@
 
         </div>
       </div>
-      <%= form_for @comment, url: project_comments_path(@project.id) do |f| %>
-            <div class="card card-chart">
-              <div class="card-header">
-                <h5 class="card-category">Comment Here</h5>
-              </div>
-              <div class="card-body">
-                <div class="form-group">
-                  <%= f.text_area :content, class: 'form-control', placeholder: 'Type comment here' %>
-                </div>
-                <div class="actions">
-                  <%= f.submit class: 'btn btn-info' %>
-                </div>
-              </div>
-            </div>
-      <% end %>
-      <div class="card card-timeline card-plain">
-        <div class="card-header ">
-          <h4 class="card-title">Comments
-            <small class="description">See what people say about this project</small>
-          </h4>
-        </div>
-        <div class="card-body">
-          <ul class="timeline timeline-simple">
-            <% @comments.each do |c| %>
-            <li class="timeline-inverted">
-              <div class="timeline-panel">
-                <div class="timeline-heading">
-                  <span class="badge badge-danger"><%= c.users.first.name %> says</span>
-                </div>
-                <div class="timeline-body">
-                  <p><i class="fa fa-comments"></i> <%= c.content %>
-                  </p>
-                </div>
-                <h6>
-                  <i class="ti-time"></i><%= time_ago_in_words c.created_at %> ago
-                </h6>
-              </div>
-            </li>
-            <% end %>
-          </ul>
-        </div>
-      </div>
-
+      <%= render 'comment_form' %>
+      <%= render 'comments' %>
     </div>
     <div class="col-md-4">
-      <div class="card card-timeline card-plain">
-        <div class="card-header ">
-          <h4 class="card-title">Project votes -
-            <small class="description">Votes are a method of showing support</small>
-          </h4>
-          <p>Projects need minimum of 20,000 voting weight in favor to be approved </p>
-        </div>
-        <div class="card-body">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="panel panel-info">
-                <div class="panel-body">
-                  <textarea placeholder="Why are you voting on this project? tell briefly" class="form-control"></textarea>
-                  <div id="sliderRegular" class="slider"></div>
-                  <div class="col-sm-10 checkbox-radios">
-                    <div class="form-check form-check-radio">
-                      <label class="form-check-label">
-                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
-                        <span class="form-check-sign"></span>
-                        favor
-                      </label>
-                    </div>
-                    <div class="form-check form-check-radio">
-                      <label class="form-check-label">
-                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                        <span class="form-check-sign"></span>
-                        against
-                      </label>
-                    </div>
-                  </div>
-                  <form class="form-inline">
-                    <button class="btn btn-info pull-left" type="button">Vote</button>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
-          </br>
-          </br>
-          <ul class="timeline timeline-simple">
-            <li class="timeline-inverted">
-              <div class="timeline-badge danger">
-                <i class="now-ui-icons objects_planet"></i>
-              </div>
-              <div class="timeline-panel">
-                <div class="timeline-heading">
-                  <span class="badge badge-danger">Bilal Haider says,</span>
-                </div>
-                <div class="timeline-body">
-                  <p>Wifey made the best Father's Day meal ever. So thankful so happy so blessed.
-                    Thank you for making my family We just had fun with the “future” theme
-                    !!! It was a fun night all together
-                  </p>
-                </div>
-                <h6>
-                  <i class="ti-time"></i> weight:
-                  <span class="btn btn-success">5000</span>
-                </h6>
-              </div>
-            </li>
-            <li class="timeline-inverted">
-              <div class="timeline-badge success">
-                <i class="now-ui-icons shopping_tag-content"></i>
-              </div>
-              <div class="timeline-panel">
-                <div class="timeline-heading">
-                  <span class="badge badge-success">BagoSan Sensei says,</span>
-                </div>
-                <div class="timeline-body">
-                  <p>Thank God for the support of my wife and real friends. I also wanted to point
-                    out that it’s the first album to go number 1 off of streaming!!! I love
-                    you Ellen
-                  </p>
-                </div>
-                <h6>
-                  <i class="ti-time"></i> weight:
-                  <span class="btn btn-success">100</span>
-                </h6>
-              </div>
-            </li>
-            <li class="timeline-inverted">
-              <div class="timeline-badge info">
-                <i class="now-ui-icons shopping_delivery-fast"></i>
-              </div>
-              <div class="timeline-panel">
-                <div class="timeline-heading">
-                  <span class="badge badge-info">Loki says,</span>
-                </div>
-                <div class="timeline-body">
-                  <p>Called I Miss the Old Kanye That’s all it was Kanye And I love you like Kanye
-                    loves Kanye Famous viewing @ Figueroa and 12th in downtown LA 11:10PM</p>
-                  <p>What if Kanye
-                  </p>
-                  <hr>
-                </div>
-                <h6>
-                  <i class="ti-time"></i> weight:
-                  <span class="btn btn-success">10000</span>
-                </h6>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </div>
+      <%= render 'votes' %>
     </div>
   </div>
 </div>
@@ -323,7 +179,7 @@
 <% content_for :lins do %>
   <a href=""> Budget  <b><%= @project.budget %> <i class="fab fa-nutritionix"></i></b> </a>
   |
-  <a href=""> 100 <i class="fa fa-gem"></i></a>
+  <a href=""> <%= @project.votes.count %> <i class="fa fa-gem"></i></a>
   |
   <a href=""> <%= @comments.count %> <i class="fa fa-comments"></i></a>
   |

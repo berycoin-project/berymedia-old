@@ -16,3 +16,15 @@
     </div>
   </div>
 </div>
+
+<% content_for :head do %>
+  New Article
+<% end %>
+<% content_for :short do %>
+  <%= " When writing an article, provide a short description in two lines, then move on explaining all the details" %>
+<% end %>
+<% content_for :lins do %>
+  <a href=""> Reward: <b>50</b> </a>
+  |
+  <a href="http://localhost:3000/users/<%= current_user.id %>"> by <%= current_user.name %> </a>
+<% end%>

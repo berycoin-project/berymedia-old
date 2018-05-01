@@ -1,4 +1,6 @@
 class ProjectCommentsController < ApplicationController
+  before_action :authenticate_user!
+
   def create
     comment = Comment.new(comment_params)
     project.comments << comment

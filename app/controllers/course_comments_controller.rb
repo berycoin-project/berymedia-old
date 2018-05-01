@@ -1,4 +1,6 @@
 class CourseCommentsController < ApplicationController
+  before_action :authenticate_user!
+  
   def create
     comment = Comment.new(comment_params)
     course.comments << comment
