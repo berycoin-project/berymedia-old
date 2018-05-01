@@ -15,16 +15,21 @@ Rails.application.routes.draw do
   resources :wallets
   resources :roles
   resources :information
-
+  get 'about', to: 'pages#about'
+  
   resources :courses do
     resources :comments, :controller => "course_comments", only: [:create]
+    resources :articles, :controller => "course_articles", only: [:create]
+    resources :reactions, :controller => "course_reactions", only: [:create]
   end
   resources :articles do
     resources :comments, :controller => "article_comments", only: [:create]
+    resources :reactions, :controller => "article_reactions", only: [:create]
   end
   resources :projects do
     resources :comments, :controller => "project_comments", only: [:create]
     resources :votes, :controller => "project_votes", only: [:create]
+    resources :reactions, :controller => "article_reactions", only: [:create]
   end
 
   root to: 'user_dashboard#index'
@@ -33,5 +38,5 @@ Rails.application.routes.draw do
       registrations: 'registrations'
   }
   resources :users
-  get 'about', to: 'pages#about'
+  
 end
